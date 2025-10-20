@@ -3,3 +3,5 @@
 
 Задание Системы контроля версий, продвинутое ООП 
 Диаграмма  в папке в файле Untitled Diagram.drawio
+
+![UML Diagram](VersionControlSystemsAdvancedOOP/UML.png) 

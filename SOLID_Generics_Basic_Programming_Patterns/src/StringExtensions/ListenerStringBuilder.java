@@ -7,6 +7,10 @@ public class ListenerStringBuilder {
     private final List<StringListener> listeners = new ArrayList<>();
 
     public void addListener(StringListener listener) {
+        if (listener == null) {
+            System.out.println("Попытка добавить null-слушателя проигнорирована.");
+            return;
+        }
         listeners.add(listener);
     }
 
@@ -15,32 +19,62 @@ public class ListenerStringBuilder {
     }
 
     private void notifyListeners() {
+        String current = builder.toString();
         for (StringListener listener : listeners) {
-            listener.onChange(builder.toString());
+            try {
+                if (listener != null) {
+                    listener.onChange(current);
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка в слушателе: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
     public ListenerStringBuilder append(String str) {
-        builder.append(str);
-        notifyListeners();
+        try {
+            builder.append(str);
+            notifyListeners();
+        } catch (Exception e) {
+            System.out.println("Ошибка при append: " + e.getMessage());
+        }
         return this;
     }
 
     public ListenerStringBuilder insert(int offset, String str) {
-        builder.insert(offset, str);
-        notifyListeners();
+        try {
+            builder.insert(offset, str);
+            notifyListeners();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Неверный offset в insert: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ошибка при insert: " + e.getMessage());
+        }
         return this;
     }
 
     public ListenerStringBuilder delete(int start, int end) {
-        builder.delete(start, end);
-        notifyListeners();
+        try {
+            builder.delete(start, end);
+            notifyListeners();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Неверные индексы в delete: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ошибка при delete: " + e.getMessage());
+        }
         return this;
     }
 
     public ListenerStringBuilder replace(int start, int end, String str) {
-        builder.replace(start, end, str);
-        notifyListeners();
+        try {
+            builder.replace(start, end, str);
+            notifyListeners();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Неверные индексы в replace: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ошибка при replace: " + e.getMessage());
+        }
         return this;
     }
 
@@ -48,6 +82,7 @@ public class ListenerStringBuilder {
         return builder.length();
     }
 
+    @Override
     public String toString() {
         return builder.toString();
     }

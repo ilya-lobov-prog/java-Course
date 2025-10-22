@@ -17,10 +17,17 @@ public final class Vector {
     }
 
     public double multiplyScalar(Vector other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Вектор не может быть null");
+        }
+
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 
     public static Vector[] generateVectors(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Количество векторов не может быть отрицательным");
+        }
         Random random = new Random();
         Vector[] vectors = new Vector[n];
         for (int i = 0; i < n; i++) {
@@ -33,6 +40,9 @@ public final class Vector {
     }
 
     public Vector cross(Vector other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Вектор не может быть null");
+        }
         double cx = this.y * other.z - this.z * other.y;
         double cy = this.z * other.x - this.x * other.z;
         double cz = this.x * other.y - this.y * other.x;
@@ -40,16 +50,33 @@ public final class Vector {
     }
 
     public double getCos(Vector other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Вектор не может быть null");
+        }
+
+        double length1 = this.length();
+        double length2 = other.length();
+
+        if (length1 == 0 || length2 == 0) {
+            throw new ArithmeticException("Нельзя вычислить угол с нулевым вектором");
+        }
+
         double dotProduct = this.multiplyScalar(other);
-        double lengths = this.length() * other.length();
-        return dotProduct / lengths;
+        return dotProduct / (length1 * length2);
     }
 
     public Vector sum(Vector other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Вектор не может быть null");
+        }
+
         return new Vector(this.x + other.x, this.y + other.y, this.z + other.z);
     }
 
     public Vector sub(Vector other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Вектор не может быть null");
+        }
         return new Vector(this.x - other.x, this.y - other.y, this.z - other.z);
     }
 

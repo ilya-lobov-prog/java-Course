@@ -35,7 +35,7 @@ public class Car extends BaseVehicle {
         public Engine() {
         }
         public boolean startEngine() {
-            if (!StringUtils.isNullOrEmpty(getBrand())&&!StringUtils.isNullOrEmpty(getModel())) {
+            if (!StringUtils.isNullOrEmpty(getBrand())&&!StringUtils.isNullOrEmpty(getModel()) && !StringUtils.isNullOrEmpty(carModel)) {
                 System.out.println(carModel + " ForceEngine " + getBrand() + " " + getModel());
                 return true;
             }

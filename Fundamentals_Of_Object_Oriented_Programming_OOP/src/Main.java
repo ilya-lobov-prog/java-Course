@@ -1,10 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-            Vector test1 = new Vector(8, 8, 7);
+
+        try {
+            Vector test1 = new Vector(0, 0, 0);
             Vector test2 = new Vector(10, 12, 11);
 
             System.out.println("вектор 1 = " + test1);
             System.out.println("вектор 2 = " + test2);
+
+            System.out.println("Скалярное произведение: " + test1.multiplyScalar(null));
 
             System.out.println("Длинна вектора 1: " + test1.length());
             System.out.println("Скалярное произведение: " + test1.multiplyScalar(test2));
@@ -18,6 +22,9 @@ public class Main {
             for (Vector v : randomVectors) {
                 System.out.println(v);
             }
+        } catch (Exception e) {
+            System.out.println("неправильные параметры для вектора " + e.getMessage());
+        }
     }
 }
 

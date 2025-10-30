@@ -66,14 +66,46 @@ public class Main {
     }
 
 
-    private static int readConsole(Scanner scanner, String inviteMessage) {
-        System.out.print(inviteMessage);
-        while (!scanner.hasNextInt()) {
-            System.out.print("Введите корректное целое число: ");
-            scanner.next();
+    private static int readConsole( Scanner scanner, String inviteMessage) {
+        while (true) {
+            try {
+                System.out.print(inviteMessage);
+
+                if (!scanner.hasNextLine()) {
+                    System.out.println("Ввод завершён (EOF получен). Повторный ввод невозможен.");
+                    break;
+                }
+
+                String input = scanner.nextLine().trim();
+
+                if (input.isEmpty()) {
+                    System.out.println("Ничего не введено. Попробуйте снова.");
+                    continue;
+                }
+
+                try {
+                    int value = Integer.parseInt(input);
+
+                    if (value <= 0) {
+                        System.out.println("Число должно быть положительным и больше 0. Попробуйте снова.");
+                        continue;
+                    }
+
+                    return value;
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка: \"" + input + "\" не является целым числом.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка: " + e.getMessage());
+                break;
+            }
         }
-        return scanner.nextInt();
+        return -1;
     }
+
+
+
 
     public static void insertionSortAscending(int[] array) {
         for (int i = 1; i < array.length; i++) {

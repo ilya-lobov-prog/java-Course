@@ -8,6 +8,9 @@ public abstract class BaseVehicle implements IVehicle {
     private final Enum<?> fuelType;
 
     public BaseVehicle(String brand, String model, Enum<?> fuelType) {
+        if (brand == null || model == null || fuelType == null) {
+            throw new IllegalArgumentException("Brand, model и fuelType не могут быть null ");
+        }
         this.brand = brand;
         this.model = model;
         this.fuelType = fuelType;
